@@ -1,6 +1,4 @@
-package com.lixy.voteboot.enums;
-
-import com.hog.bigdata.enums.ExceptionType;
+package com.hog.bigdata.enums;
 
 /**
  * @author yuanyang
