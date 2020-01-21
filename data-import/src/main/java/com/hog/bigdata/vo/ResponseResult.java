@@ -1,8 +1,8 @@
 package com.hog.bigdata.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.hog.bigdata.enums.BaseExceptionType;
 import com.hog.bigdata.enums.BizException;
-import com.lixy.voteboot.enums.BaseExceptionType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
