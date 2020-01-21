@@ -175,7 +175,7 @@ public class DataSynManageServiceImpl implements DataSynManageService {
             model.setOwnerName(strings.get(1));
             //猪数量*90
             String pigNumStr = strings.get(4);
-            model.setWeight(String.valueOf(Integer.parseInt(pigNumStr.substring(0,pigNumStr.indexOf("头"))) * 90));
+            model.setWeight(String.valueOf(Integer.parseInt(pigNumStr.substring(0, pigNumStr.indexOf("头"))) * 90));
             model.setCarNum(strings.get(10));
             //查询养殖户手机号，如果有就直接取，没有就生成
             FarmerManagement farmerManagement = farmerManagementMap.get(model.getOwnerName());
@@ -359,7 +359,7 @@ public class DataSynManageServiceImpl implements DataSynManageService {
     /**
      * 自治区
      */
-    private static List<String> AUTONOMY_REGION_LIST = Stream.of("内蒙","新疆","广西","宁夏","西藏").collect(Collectors.toList());
+    private static List<String> AUTONOMY_REGION_LIST = Stream.of("内蒙", "新疆", "广西", "宁夏", "西藏").collect(Collectors.toList());
     /**
      * 主城区
      */
@@ -413,8 +413,8 @@ public class DataSynManageServiceImpl implements DataSynManageService {
      * @param str
      * @return
      */
-    private List<String> getAreaSplitAddr(String str) {
-        String addr = str.replaceAll("市辖区", "").replaceAll("自治区","").replaceAll("\n", "");
+    private  List<String> getAreaSplitAddr(String str) {
+        String addr = str.replaceAll("市辖区", "").replaceAll("自治区", "").replaceAll("\n", "");
         List<String> areaList = new ArrayList<>();
         String prex2Char = addr.substring(0, 2);
         String province = null;
@@ -426,14 +426,15 @@ public class DataSynManageServiceImpl implements DataSynManageService {
             if (SPECIAL_CITY_LIST.contains(prex2Char)) {
                 province = prex2Char + AreaFieldEnum.CITY.getName();
                 city = province;
-            } else if(AUTONOMY_REGION_LIST.contains(prex2Char)){//是否为自治区
-                province =prex2Char+AreaFieldEnum.AUTONOMY.getName();
+            } else if (AUTONOMY_REGION_LIST.contains(prex2Char)) {//是否为自治区
+                province = prex2Char + AreaFieldEnum.AUTONOMY.getName();
                 if (addr.indexOf(AreaFieldEnum.CITY.getName()) != -1) {
-                    city = addr.substring(addr.indexOf(prex2Char) + 1, addr.indexOf(AreaFieldEnum.CITY.getName()) + 1);
-                }else{
-                    city = addr.substring(addr.indexOf(prex2Char) + 1, addr.indexOf(AreaFieldEnum.STATE.getName()) + 1);
+                    city = addr.substring(addr.indexOf(prex2Char) + prex2Char.length(), addr.indexOf(AreaFieldEnum.CITY.getName()) + 1);
+                } else {
+                    city = addr.substring(addr.indexOf(prex2Char) + prex2Char.length(), addr.indexOf(AreaFieldEnum.STATE.getName()) + 1);
                 }
-            }else {
+
+            } else {
                 province = addr.substring(0, addr.indexOf(AreaFieldEnum.PROVINCE.getName()) + 1);
                 city = addr.substring(addr.indexOf(AreaFieldEnum.PROVINCE.getName()) + 1, addr.indexOf(AreaFieldEnum.CITY.getName()) + 1);
             }
@@ -454,7 +455,7 @@ public class DataSynManageServiceImpl implements DataSynManageService {
             if (townStr.contains(AreaFieldEnum.TOWN.getName())) {
                 String townE = townStr.substring(0, townStr.indexOf(AreaFieldEnum.TOWN.getName()));
                 town = townE + (STREET_LIST.contains(townE) ? AreaFieldEnum.STREET.getName() : AreaFieldEnum.TOWN.getName());
-            } else {
+            } else if(townStr.contains(AreaFieldEnum.STREET.getName())) {
                 town = townStr.substring(0, townStr.indexOf(AreaFieldEnum.STREET.getName())) + AreaFieldEnum.STREET.getName();
             }
         } catch (Exception e) {
@@ -547,6 +548,7 @@ public class DataSynManageServiceImpl implements DataSynManageService {
 //        for (int i = 0; i <100 ; i++) {
 //
 //            randomArea();
-//        }
+//        System.out.println(getAreaSplitAddr("重庆市武隆区庙垭乡双桥村重庆达利农业开发有限公司\n"));
+//        System.out.println(getAreaSplitAddr("西藏昌都州卡若区沙贡镇西藏长昌农业综合开发有限责任公司\n"));
     }
 }
