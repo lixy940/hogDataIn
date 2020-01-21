@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hog.bigdata.mapper.PigDispatchingMapper" >
+  <resultMap id="BaseResultMap" type="com.hog.bigdata.entity.PigDispatching" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dispatching_date" property="dispatchingDate" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="used_to" property="usedTo" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="VARCHAR" />
+    <result column="pig_num" property="pigNum" jdbcType="INTEGER" />
+    <result column="producing_province" property="producingProvince" jdbcType="VARCHAR" />
+    <result column="producing_city" property="producingCity" jdbcType="VARCHAR" />
+    <result column="producing_district" property="producingDistrict" jdbcType="VARCHAR" />
+    <result column="destination_province" property="destinationProvince" jdbcType="VARCHAR" />
+    <result column="destination_city" property="destinationCity" jdbcType="VARCHAR" />
+    <result column="destination_district" property="destinationDistrict" jdbcType="VARCHAR" />
+    <result column="destination_town" property="destinationTown" jdbcType="VARCHAR" />
+    <result column="new_flag" property="newFlag" jdbcType="INTEGER" />
+    <result column="town_name" property="townName" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, dispatching_date, type, used_to, weight, pig_num, producing_province, producing_city, 
+    producing_district, destination_province, destination_city, destination_district, 
+    destination_town, new_flag, town_name, create_by, create_date, update_by, update_date, 
+    remarks, code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from two_pig_dispatching
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from two_pig_dispatching
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hog.bigdata.entity.PigDispatching" >
+    insert into two_pig_dispatching ( dispatching_date, type,
+      used_to, weight, pig_num, 
+      producing_province, producing_city, producing_district, 
+      destination_province, destination_city, destination_district, 
+      destination_town, new_flag, town_name, 
+      create_by, create_date, update_by, 
+      update_date, remarks, code
+      )
+    values (#{dispatchingDate,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER},
+      #{usedTo,jdbcType=INTEGER}, #{weight,jdbcType=VARCHAR}, #{pigNum,jdbcType=INTEGER}, 
+      #{producingProvince,jdbcType=VARCHAR}, #{producingCity,jdbcType=VARCHAR}, #{producingDistrict,jdbcType=VARCHAR}, 
+      #{destinationProvince,jdbcType=VARCHAR}, #{destinationCity,jdbcType=VARCHAR}, #{destinationDistrict,jdbcType=VARCHAR}, 
+      #{destinationTown,jdbcType=VARCHAR}, #{newFlag,jdbcType=INTEGER}, #{townName,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hog.bigdata.entity.PigDispatching" >
+    insert into two_pig_dispatching
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dispatchingDate != null" >
+        dispatching_date,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="usedTo != null" >
+        used_to,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="pigNum != null" >
+        pig_num,
+      </if>
+      <if test="producingProvince != null" >
+        producing_province,
+      </if>
+      <if test="producingCity != null" >
+        producing_city,
+      </if>
+      <if test="producingDistrict != null" >
+        producing_district,
+      </if>
+      <if test="destinationProvince != null" >
+        destination_province,
+      </if>
+      <if test="destinationCity != null" >
+        destination_city,
+      </if>
+      <if test="destinationDistrict != null" >
+        destination_district,
+      </if>
+      <if test="destinationTown != null" >
+        destination_town,
+      </if>
+      <if test="newFlag != null" >
+        new_flag,
+      </if>
+      <if test="townName != null" >
+        town_name,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dispatchingDate != null" >
+        #{dispatchingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="usedTo != null" >
+        #{usedTo,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="pigNum != null" >
+        #{pigNum,jdbcType=INTEGER},
+      </if>
+      <if test="producingProvince != null" >
+        #{producingProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="producingCity != null" >
+        #{producingCity,jdbcType=VARCHAR},
+      </if>
+      <if test="producingDistrict != null" >
+        #{producingDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationProvince != null" >
+        #{destinationProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationCity != null" >
+        #{destinationCity,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationDistrict != null" >
+        #{destinationDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationTown != null" >
+        #{destinationTown,jdbcType=VARCHAR},
+      </if>
+      <if test="newFlag != null" >
+        #{newFlag,jdbcType=INTEGER},
+      </if>
+      <if test="townName != null" >
+        #{townName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hog.bigdata.entity.PigDispatching" >
+    update two_pig_dispatching
+    <set >
+      <if test="dispatchingDate != null" >
+        dispatching_date = #{dispatchingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="usedTo != null" >
+        used_to = #{usedTo,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="pigNum != null" >
+        pig_num = #{pigNum,jdbcType=INTEGER},
+      </if>
+      <if test="producingProvince != null" >
+        producing_province = #{producingProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="producingCity != null" >
+        producing_city = #{producingCity,jdbcType=VARCHAR},
+      </if>
+      <if test="producingDistrict != null" >
+        producing_district = #{producingDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationProvince != null" >
+        destination_province = #{destinationProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationCity != null" >
+        destination_city = #{destinationCity,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationDistrict != null" >
+        destination_district = #{destinationDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationTown != null" >
+        destination_town = #{destinationTown,jdbcType=VARCHAR},
+      </if>
+      <if test="newFlag != null" >
+        new_flag = #{newFlag,jdbcType=INTEGER},
+      </if>
+      <if test="townName != null" >
+        town_name = #{townName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hog.bigdata.entity.PigDispatching" >
+    update two_pig_dispatching
+    set dispatching_date = #{dispatchingDate,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      used_to = #{usedTo,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=VARCHAR},
+      pig_num = #{pigNum,jdbcType=INTEGER},
+      producing_province = #{producingProvince,jdbcType=VARCHAR},
+      producing_city = #{producingCity,jdbcType=VARCHAR},
+      producing_district = #{producingDistrict,jdbcType=VARCHAR},
+      destination_province = #{destinationProvince,jdbcType=VARCHAR},
+      destination_city = #{destinationCity,jdbcType=VARCHAR},
+      destination_district = #{destinationDistrict,jdbcType=VARCHAR},
+      destination_town = #{destinationTown,jdbcType=VARCHAR},
+      new_flag = #{newFlag,jdbcType=INTEGER},
+      town_name = #{townName,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <insert id="batchInsert">
+    INSERT INTO two_pig_dispatching(dispatching_date, type,
+    used_to,weight, pig_num,
+    producing_province, producing_city, producing_district,
+    destination_province, destination_city, destination_district,
+    destination_town, new_flag, town_name,
+    create_by, create_date, update_by,
+    update_date, code
+    )
+    VALUES
+    <foreach collection="dispatchings" item="dispatching" separator=",">
+      (#{dispatching.dispatchingDate}, #{dispatching.type},#{dispatching.usedTo}, #{dispatching.weight}, #{dispatching.pigNum},
+      #{dispatching.producingProvince}, #{dispatching.producingCity}, #{dispatching.producingDistrict},
+      #{dispatching.destinationProvince}, #{dispatching.destinationCity}, #{dispatching.destinationDistrict},
+      #{dispatching.destinationTown}, #{dispatching.newFlag}, #{dispatching.townName},#{dispatching.createBy}, #{dispatching.createDate},
+      #{dispatching.updateBy},#{dispatching.updateDate}, #{dispatching.code})
+    </foreach>
+  </insert>
+</mapper>

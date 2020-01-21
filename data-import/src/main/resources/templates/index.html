@@ -1,0 +1,339 @@
+<html>
+<head>
+    <title>生猪资源平台数据导入</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+<link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="/static/js/jquery/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+<style>
+    .table-bordered > tbody > tr > td {
+        border: none;
+        font-size: 12px;
+    }
+</style>
+<body onload="init()">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 400px;height: 300px;">
+        <div class="modal-content">
+            <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"
+                                                                                     aria-hidden="true"></span>关闭
+            </button>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <h2 class="text-center">养殖户信息/产地检疫/屠宰检疫/猪只调运--数据导入</h2>
+</div>
+<div class="container-fluid">
+    <div class="row main">
+        <div class="col-md-2 content">
+        </div>
+        <div class="col-md-6 content center-block" style="width: 700px;">
+            <div role="form">
+                <div class="form-group">
+                    <label for="type">业务类型：</label>
+                    <select id="type" class="form-control center-block" name="type">
+                        <option value="">---请选择---</option>
+                        <option value="1">产地检疫</option>
+                        <option value="2">屠宰检疫</option>
+                        <option value="3">猪只调运</option>
+                        <option value="4">养殖户信息</option>
+                    </select>
+                </div>
+                <div id="varietyDiv" class="form-group">
+                    <label for="variety">种类：</label>
+                    <select id="variety" class="form-control center-block" name="variety"></select>
+                </div>
+                <div id="purposeDiv" class="form-group">
+                    <label for="purpose">用途：</label>
+                    <select id="purpose" class="form-control center-block" name="purpose"></select><br>
+                </div>
+                <div id="priceDiv" class="form-group">
+                    <label for="price">单价：</label>
+                    <div class="input-group">
+                        <input id="price" class="form-control" type="text" name="price" placeholder="请输入单价"/>
+                        <span class="input-group-addon">.0</span>
+                    </div>
+                </div>
+                <div id="priceTip" class="alert alert-danger">错误！正整数或精确到1位小数，如32.6或32</div>
+                <div class="form-group">
+                    <label for="file">选择上传的excel文件</label>
+                    <input type="file" id="file" name="file">
+                </div>
+                <div class="form-group">
+                    <button id="submit" type="submit" class="btn btn-primary col-md-offset-4">上传</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 content">
+            <div class="text-center text-danger" style="font-size: 25px;">使用说明</div>
+            <p></p>
+            <p></p>
+            <p></p>
+            <table class="table text-left table-bordered">
+                <tbody>
+                <tr>
+                    <td class="text-muted">养殖户信息导入：选择文件直接导入即可</td>
+                </tr>
+                <tr>
+                    <td class="text-muted">产地检疫导入：数据源只能是同一个用途的数据进行导入</td>
+                </tr>
+                <tr>
+                    <td class="text-muted">屠宰检疫导入：数据源只能是同一种类的数据进行导入</td>
+                </tr>
+                <tr>
+                    <td class="text-danger">屠宰检疫导入：数据源只能是同一种类的数据进行导入。 当猪种类=猪时，填写项为“屠宰、饲养”；当猪种类=产品时，填写项为“食用、加工”</td>
+                </tr>
+                <tr>
+                    <td class="text-success">单价：根据业务需要输入单价，正整数或精确到1位小数，如32.6或32；产地检疫时，代表生猪单价/头，屠宰检疫时，代表猪肉单价/公斤</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer class="navbar-fixed-bottom">
+    <div class="col-md-12 col-md-offset-4">
+        <label class="text-primary">Copyright HogBigData.com @2020-2021 重庆生猪大数据产业发展有限公司</label>
+    </div>
+</footer>
+</body>
+<script type="text/javascript">
+    $(function () {
+        $("#priceTip").hide();
+    })
+
+    function init() {
+
+        var typeE = $("#type").val("");
+
+        var varietyE = $("#variety");
+        var priceE = $("#price");
+        var purposeE = $("#purpose");
+
+        varietyE.empty();
+        varietyE.append("<option value=''>---请选择---</option>");
+        varietyE.attr("disabled", true);
+        $("#varietyDiv").hide();
+
+        priceE.val("");
+        priceE.attr("disabled", true);
+        $("#priceDiv").hide();
+
+        purposeE.empty();
+        purposeE.attr("disabled", true);
+        $("#purposeDiv").hide();
+
+        $("#submit").attr("disabled", true);
+
+    }
+
+    $("#type").change(function () {
+        $("#file").val("");
+        var typeE = $(this).val();
+        var varietyE = $("#variety");
+        var purposeE = $("#purpose");
+        var priceE = $("#price");
+        if (Number(typeE) == 1) {
+            varietyE.empty();
+            varietyE.append("<option value=''>---请选择---</option>");
+            varietyE.attr("disabled", true);
+            $("#varietyDiv").hide();
+
+            purposeE.empty();
+            purposeE.attr("disabled", false);
+            purposeE.append("<option value=''>---请选择---</option>")
+                .append("<option value='1'>屠宰</option>")
+                .append("<option value='2'>饲养</option>")
+                .append("<option value='3'>种用</option>");
+            $("#purposeDiv").show();
+
+            priceE.val("");
+            priceE.attr("disabled", false);
+            $("#priceDiv").show();
+
+            $("#submit").attr("disabled", false);
+        } else if (Number(typeE) == 2) {
+            varietyE.empty();
+            varietyE.append("<option value=''>---请选择---</option>")
+                .append("<option value='1'>猪肉</option>")
+                .append("<option value='2'>产品</option>");
+            varietyE.attr("disabled", false);
+            $("#varietyDiv").show();
+
+            purposeE.empty();
+            purposeE.attr("disabled", true);
+            $("#purposeDiv").hide();
+
+            priceE.val("");
+            priceE.attr("disabled", false);
+            $("#priceDiv").show();
+
+            $("#submit").attr("disabled", false);
+        } else if (Number(typeE) == 3) {
+            varietyE.empty();
+            varietyE.append("<option value=''>---请选择---</option>")
+                .append("<option value='1'>猪</option>")
+                .append("<option value='2'>产品</option>");
+            varietyE.attr("disabled", false);
+            $("#varietyDiv").show();
+
+            purposeE.empty();
+            purposeE.attr("disabled", false);
+            purposeE.append("<option value=''>---请选择---</option>")
+                .append("<option value='1'>屠宰</option>")
+                .append("<option value='2'>饲养</option>")
+                .append("<option value='3'>食用</option>")
+                .append("<option value='4'>加工</option>");
+            $("#purposeDiv").show();
+
+            priceE.val("");
+            priceE.attr("disabled", true);
+            $("#priceDiv").hide();
+
+            $("#submit").attr("disabled", false);
+
+        } else if (Number(typeE) == 4) {
+            varietyE.empty();
+            varietyE.append("<option value=''>---请选择---</option>");
+            varietyE.attr("disabled", true);
+            $("#varietyDiv").hide();
+
+            purposeE.empty();
+            purposeE.attr("disabled", true);
+            $("#purposeDiv").hide();
+
+            priceE.val("");
+            priceE.attr("disabled", true);
+            $("#priceDiv").hide();
+
+            $("#submit").attr("disabled", false);
+
+        } else {
+            init();
+        }
+
+    })
+
+    $("#price").change(function () {
+
+        if (validatePrice()) {
+            $("#priceTip").show()
+        } else {
+            $("#priceTip").hide();
+        }
+    });
+
+    /*
+     * 单价验证
+     */
+    function validatePrice() {
+        var price = $("#price").val();
+        var reg = /^[0-9][0-9]*(\.[0-9]{1})?$/;
+        return !reg.test(price);
+    }
+
+    $("#submit").click(function () {
+        var typeE = $("#type").val();
+
+        if (typeE == '') {
+            alert("请选择业务类型");
+            return false;
+        }
+
+        var varietyE = $("#variety").val();
+        var priceE = $("#price").val();
+        var purposeE = $("#purpose").val();
+        if (Number(typeE) == 1) {
+            if (purposeE == '' || purposeE == null) {
+                alert("请选择用途");
+                return false;
+            }
+            if (priceE == '' || priceE == null) {
+                alert("请输入单价");
+                return false;
+            }
+
+            if (validatePrice()) {
+                alert("单价格式不正确");
+                return false;
+            }
+        } else if (Number(typeE) == 2) {
+            if (varietyE == '' || varietyE == null) {
+                alert("请选择种类");
+                return false;
+            }
+            if (priceE == '' || priceE == null) {
+                alert("请输入单价");
+                return false;
+            }
+
+            if (validatePrice()) {
+                alert("单价格式不正确");
+                return false;
+            }
+        } else if (Number(typeE) == 3) {
+            if (varietyE == '' || varietyE == null) {
+                alert("请选择种类");
+                return false;
+            }
+            if (purposeE == '' || purposeE == null) {
+                alert("请选择用途");
+                return false;
+            }
+        }
+
+        var fileE = $("#file").val();
+        if (fileE == null || fileE == "" || fileE == undefined) {
+            alert("请选择文件");
+            return false;
+        }
+
+        // $("#submit").submit();
+        submit();
+    });
+
+
+    function submit() {
+        var typeE = $("#type").val();
+        var varietyE = $("#variety").val();
+        var priceE = $("#price").val();
+        var purposeE = $("#purpose").val();
+        var formData = new FormData();
+        formData.append("type", typeE);
+        if (varietyE != null && varietyE != '') {
+            formData.append("variety", varietyE);
+        }
+        if (priceE != null && priceE != '') {
+            formData.append("price", priceE);
+        }
+        if (purposeE != null && purposeE != '') {
+            formData.append("purpose", purposeE);
+        }
+        formData.append("file", $('#file')[0].files[0]);
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8888/upload",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                console.log(data);
+                if (data.status !== 200) {
+                    alert(data.msg);
+                } else {
+                    alert("文件上传成功!" + data.data);
+                    init();
+                    $("#submit").attr("disabled", false);
+                }
+            }
+        });
+    }
+
+</script>
+</html>

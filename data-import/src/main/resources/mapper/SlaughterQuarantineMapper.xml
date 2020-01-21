@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hog.bigdata.mapper.SlaughterQuarantineMapper" >
+  <resultMap id="BaseResultMap" type="com.hog.bigdata.entity.SlaughterQuarantine" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="quarantine_date" property="quarantineDate" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="VARCHAR" />
+    <result column="car_num" property="carNum" jdbcType="VARCHAR" />
+    <result column="owner_phone" property="ownerPhone" jdbcType="VARCHAR" />
+    <result column="unit_price" property="unitPrice" jdbcType="VARCHAR" />
+    <result column="producing_province" property="producingProvince" jdbcType="VARCHAR" />
+    <result column="producing_city" property="producingCity" jdbcType="VARCHAR" />
+    <result column="producing_district" property="producingDistrict" jdbcType="VARCHAR" />
+    <result column="destination_province" property="destinationProvince" jdbcType="VARCHAR" />
+    <result column="destination_city" property="destinationCity" jdbcType="VARCHAR" />
+    <result column="destination_district" property="destinationDistrict" jdbcType="VARCHAR" />
+    <result column="destination_town" property="destinationTown" jdbcType="VARCHAR" />
+    <result column="new_flag" property="newFlag" jdbcType="INTEGER" />
+    <result column="town_name" property="townName" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="destination_district_code" property="destinationDistrictCode" jdbcType="VARCHAR" />
+    <result column="destination_town_code" property="destinationTownCode" jdbcType="VARCHAR" />
+    <result column="producing_district_code" property="producingDistrictCode" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, quarantine_date, type, owner_name, weight, car_num, owner_phone, unit_price,
+    producing_province, producing_city, producing_district, destination_province, destination_city, 
+    destination_district, destination_town, new_flag, town_name, create_by, create_date, 
+    update_by, update_date, remarks, destination_district_code, destination_town_code, 
+    producing_district_code, code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from two_slaughter_quarantine
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from two_slaughter_quarantine
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hog.bigdata.entity.SlaughterQuarantine" >
+    insert into two_slaughter_quarantine ( quarantine_date, type,
+      owner_name, weight, car_num, 
+      owner_phone, unit_price, producing_province, 
+      producing_city, producing_district, destination_province, 
+      destination_city, destination_district, destination_town, 
+      new_flag, town_name, create_by, 
+      create_date, update_by, update_date, 
+      remarks, destination_district_code, destination_town_code, 
+      producing_district_code, code)
+    values (#{quarantineDate,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER},
+      #{ownerName,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, #{carNum,jdbcType=VARCHAR}, 
+      #{ownerPhone,jdbcType=VARCHAR}, #{unitPrice,jdbcType=VARCHAR}, #{producingProvince,jdbcType=VARCHAR}, 
+      #{producingCity,jdbcType=VARCHAR}, #{producingDistrict,jdbcType=VARCHAR}, #{destinationProvince,jdbcType=VARCHAR}, 
+      #{destinationCity,jdbcType=VARCHAR}, #{destinationDistrict,jdbcType=VARCHAR}, #{destinationTown,jdbcType=VARCHAR}, 
+      #{newFlag,jdbcType=INTEGER}, #{townName,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{destinationDistrictCode,jdbcType=VARCHAR}, #{destinationTownCode,jdbcType=VARCHAR}, 
+      #{producingDistrictCode,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hog.bigdata.entity.SlaughterQuarantine" >
+    insert into two_slaughter_quarantine
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="quarantineDate != null" >
+        quarantine_date,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="ownerName != null" >
+        owner_name,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="carNum != null" >
+        car_num,
+      </if>
+      <if test="ownerPhone != null" >
+        owner_phone,
+      </if>
+      <if test="unitPrice != null" >
+        unit_price,
+      </if>
+      <if test="producingProvince != null" >
+        producing_province,
+      </if>
+      <if test="producingCity != null" >
+        producing_city,
+      </if>
+      <if test="producingDistrict != null" >
+        producing_district,
+      </if>
+      <if test="destinationProvince != null" >
+        destination_province,
+      </if>
+      <if test="destinationCity != null" >
+        destination_city,
+      </if>
+      <if test="destinationDistrict != null" >
+        destination_district,
+      </if>
+      <if test="destinationTown != null" >
+        destination_town,
+      </if>
+      <if test="newFlag != null" >
+        new_flag,
+      </if>
+      <if test="townName != null" >
+        town_name,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="destinationDistrictCode != null" >
+        destination_district_code,
+      </if>
+      <if test="destinationTownCode != null" >
+        destination_town_code,
+      </if>
+      <if test="producingDistrictCode != null" >
+        producing_district_code,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="quarantineDate != null" >
+        #{quarantineDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="ownerName != null" >
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="carNum != null" >
+        #{carNum,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerPhone != null" >
+        #{ownerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        #{unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="producingProvince != null" >
+        #{producingProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="producingCity != null" >
+        #{producingCity,jdbcType=VARCHAR},
+      </if>
+      <if test="producingDistrict != null" >
+        #{producingDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationProvince != null" >
+        #{destinationProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationCity != null" >
+        #{destinationCity,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationDistrict != null" >
+        #{destinationDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationTown != null" >
+        #{destinationTown,jdbcType=VARCHAR},
+      </if>
+      <if test="newFlag != null" >
+        #{newFlag,jdbcType=INTEGER},
+      </if>
+      <if test="townName != null" >
+        #{townName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationDistrictCode != null" >
+        #{destinationDistrictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationTownCode != null" >
+        #{destinationTownCode,jdbcType=VARCHAR},
+      </if>
+      <if test="producingDistrictCode != null" >
+        #{producingDistrictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hog.bigdata.entity.SlaughterQuarantine" >
+    update two_slaughter_quarantine
+    <set >
+      <if test="quarantineDate != null" >
+        quarantine_date = #{quarantineDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="ownerName != null" >
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="carNum != null" >
+        car_num = #{carNum,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerPhone != null" >
+        owner_phone = #{ownerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        unit_price = #{unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="producingProvince != null" >
+        producing_province = #{producingProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="producingCity != null" >
+        producing_city = #{producingCity,jdbcType=VARCHAR},
+      </if>
+      <if test="producingDistrict != null" >
+        producing_district = #{producingDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationProvince != null" >
+        destination_province = #{destinationProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationCity != null" >
+        destination_city = #{destinationCity,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationDistrict != null" >
+        destination_district = #{destinationDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationTown != null" >
+        destination_town = #{destinationTown,jdbcType=VARCHAR},
+      </if>
+      <if test="newFlag != null" >
+        new_flag = #{newFlag,jdbcType=INTEGER},
+      </if>
+      <if test="townName != null" >
+        town_name = #{townName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationDistrictCode != null" >
+        destination_district_code = #{destinationDistrictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationTownCode != null" >
+        destination_town_code = #{destinationTownCode,jdbcType=VARCHAR},
+      </if>
+      <if test="producingDistrictCode != null" >
+        producing_district_code = #{producingDistrictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hog.bigdata.entity.SlaughterQuarantine" >
+    update two_slaughter_quarantine
+    set quarantine_date = #{quarantineDate,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      owner_name = #{ownerName,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      car_num = #{carNum,jdbcType=VARCHAR},
+      owner_phone = #{ownerPhone,jdbcType=VARCHAR},
+      unit_price = #{unitPrice,jdbcType=VARCHAR},
+      producing_province = #{producingProvince,jdbcType=VARCHAR},
+      producing_city = #{producingCity,jdbcType=VARCHAR},
+      producing_district = #{producingDistrict,jdbcType=VARCHAR},
+      destination_province = #{destinationProvince,jdbcType=VARCHAR},
+      destination_city = #{destinationCity,jdbcType=VARCHAR},
+      destination_district = #{destinationDistrict,jdbcType=VARCHAR},
+      destination_town = #{destinationTown,jdbcType=VARCHAR},
+      new_flag = #{newFlag,jdbcType=INTEGER},
+      town_name = #{townName,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      destination_district_code = #{destinationDistrictCode,jdbcType=VARCHAR},
+      destination_town_code = #{destinationTownCode,jdbcType=VARCHAR},
+      producing_district_code = #{producingDistrictCode,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <insert id="batchInsert">
+    INSERT INTO two_slaughter_quarantine(quarantine_date, type,
+    owner_name, weight, car_num,
+    owner_phone, unit_price, producing_province,
+    producing_city, producing_district, destination_province,
+    destination_city, destination_district, destination_town,
+    new_flag, town_name, create_by,
+    create_date, update_by, update_date, code)
+    VALUES
+    <foreach collection="quarantines" item="quarantine" separator=",">
+      (#{quarantine.quarantineDate}, #{quarantine.type},#{quarantine.ownerName}, #{quarantine.weight}, #{quarantine.carNum},
+      #{quarantine.ownerPhone}, #{quarantine.unitPrice}, #{quarantine.producingProvince},#{quarantine.producingCity},
+      #{quarantine.producingDistrict}, #{quarantine.destinationProvince},#{quarantine.destinationCity},
+      #{quarantine.destinationDistrict}, #{quarantine.destinationTown},#{quarantine.newFlag}, #{quarantine.townName},
+      #{quarantine.createBy},#{quarantine.createDate}, #{quarantine.updateBy}, #{quarantine.updateDate},#{quarantine.code})
+    </foreach>
+  </insert>
+</mapper>
