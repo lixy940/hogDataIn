@@ -15,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //@Api(tags = {"数据导入管理"})
 @CrossOrigin(origins = "http://localhost:8888", maxAge = 3600)
@@ -27,7 +29,14 @@ public class DataOperatorController {
     @Autowired
     private DataSynManageService dataSynManageService;
 
-
+    @GetMapping("/test")
+    @ResponseBody
+    public Map test(Integer userId) {
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("name", "hhh");
+        map.put("age", 11);
+        return map;
+    }
     /**
      * 主页
      *
